@@ -1247,6 +1247,9 @@ section,
   opacity: 1;
 }
 
+
+
+
 @media (max-width: 640px) {
   .clients .client-logo img {
     padding: 20px;
@@ -1346,6 +1349,9 @@ section,
 .features .tab-pane p:last-child {
   margin-bottom: 0;
 }
+
+
+
 
 /*--------------------------------------------------------------
 # Services 2 Section
