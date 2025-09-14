@@ -1945,3 +1945,47 @@ section,
 #workspace .section-title {
     padding-bottom: 15px; /* minimal spacing */
 }
+
+/* ===============================
+   PRODUCT DETAIL PAGE – IMPROVED
+================================*/
+
+.pd-hero {
+  background: #f8f9fa;
+  padding: 80px 0 40px;
+  border-bottom: 1px solid #eaeaea;
+}
+.pd-hero h1 { font-size: 2rem; font-weight: 700; margin: 0; }
+.pd-hero p { color: #6c757d; margin: 5px 0 0; }
+.pd-hero .breadcrumb { margin-bottom: 10px; }
+
+/* Layout */
+.pd-top { margin-top: 40px; }
+.pd-gallery img { width: 100%; border-radius: 6px; }
+.pd-gallery-main { border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+.pd-gallery-thumbs img { cursor: pointer; border: 1px solid #eee; border-radius: 4px; }
+
+/* Info Section */
+.pd-info { padding: 15px; }
+.pd-info h3 { font-size: 1.25rem; margin-bottom: 15px; }
+.pd-info-list li { margin-bottom: 8px; }
+
+/* Tabs */
+.pd-tabs .nav-tabs .nav-link { font-weight: 600; }
+.pd-tabs .tab-content { background: #fff; border-radius: 0 0 6px 6px; }
+
+/* FAQ */
+.pd-faq .pd-section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; text-align: center; }
+.pd-faq .accordion-button { font-weight: 500; }
+.pd-faq { padding-top: 20px; }
+
+/* Similar Products */
+.pd-similar .pd-section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 25px; text-align: center; }
+.pd-similar .swiper-slide { text-align: center; }
+.pd-similar img { width: 100%; border-radius: 6px; margin-bottom: 10px; }
+.pd-similar h5 { font-size: 1rem; font-weight: 600; margin: 0; }
+
+/* Responsive */
+@media (max-width: 991px) {
+  .pd-top { flex-direction: column; }
+}
