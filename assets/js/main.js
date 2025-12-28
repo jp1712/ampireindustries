@@ -9,6 +9,15 @@
 (function() {
   "use strict";
 
+  // Prevent the browser from restoring scroll on history navigation (helps avoid unexpected jumps on reload)
+  try {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  } catch (e) {
+    // ignore
+  }
+
   /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
@@ -170,6 +179,25 @@
    * Correct scrolling position upon page load for URLs containing hash links.
    */
   window.addEventListener('load', function(e) {
+    // Avoid auto-scrolling when the page was reloaded (prevents jump-to-hash on refresh)
+    try {
+      let navType = null;
+      if (performance && typeof performance.getEntriesByType === 'function') {
+        const entries = performance.getEntriesByType('navigation');
+        if (entries && entries[0]) navType = entries[0].type; // 'navigate'|'reload'|'back_forward'|
+      }
+      // Fallback for older browsers
+      if (!navType && performance && performance.navigation) {
+        navType = performance.navigation.type === 1 ? 'reload' : 'navigate';
+      }
+      // do not perform auto-scroll on reload
+      if (navType === 'reload') return;
+      // Also skip automatic hash scrolling for the Similar Products anchor which we handle in-page.
+      if (window.location.hash === '#similar-products') return;
+    } catch (err) {
+      // ignore and continue
+    }
+
     if (window.location.hash) {
       if (document.querySelector(window.location.hash)) {
         setTimeout(() => {

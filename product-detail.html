@@ -13,8 +13,7 @@
     content="Ampire Industries, electrical wires, industrial wires, custom wire manufacturing, wire packaging, communication wires, lighting wires, power wires, India">
 
   <!-- Viewport for Mobile -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
   <!-- Robots (control how search engines crawl the page) -->
   <meta name="robots" content="index, follow">
 
@@ -107,26 +106,66 @@
     .product-hero h1 { font-weight: 700; font-size: 3rem; }
     .product-hero p { font-size: 1.2rem; }
 
-    /* Product Gallery */
-    .product-gallery { display: flex; gap: 20px; margin-bottom: 40px; }
-    .product-thumbs { flex: 0 0 100px; display: flex; flex-direction: column; gap: 10px; }
-    .product-thumbs img { width: 100%; border: 2px solid transparent; cursor: pointer; border-radius: 6px; }
+  /* Product Gallery */
+    .product-gallery { display: flex; gap: 20px; margin-bottom: 40px; align-items: flex-start; }
+    /* Thumbs column: fix width, cap height and allow internal scrolling so thumbs do not push layout */
+    .product-thumbs {
+      flex: 0 0 110px;
+      display: block; /* let Swiper manage its internal layout */
+      max-height: 520px; /* allows main image up to ~500px plus gaps */
+      overflow-y: auto;
+      padding-right: 6px; /* visual breathing room for scrollbar */
+    }
+    /* Ensure the Swiper wrapper inside thumbs stacks vertically and thumbnails don't stretch the container */
+    .product-thumbs .swiper-wrapper { display: flex; flex-direction: column; gap: 10px; }
+    .product-thumbs .swiper-slide { height: auto; flex: 0 0 auto; }
+    .product-thumbs img { width: 100%; border: 2px solid transparent; cursor: pointer; border-radius: 6px; display: block; }
     .product-thumbs .swiper-slide-thumb-active img { border-color: #57b252; }
     .product-main { flex: 1; }
     .product-main img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; background: #f9f9f9; }
 
-    /* Tabs */
-    .nav-tabs .nav-link { font-weight: 600; color: #333; }
-    .nav-tabs .nav-link.active { background: #57b252; color: #fff; border-color: #57b252; }
+  /* Tabs */
+  .nav-tabs { border-bottom: none; }
+  .nav-tabs .nav-link { font-weight: 600; color: #333; border: 0; padding: 10px 14px; }
+  .nav-tabs .nav-link.active { background: linear-gradient(180deg,#57b252,#4da346); color: #fff; border-radius: 8px; box-shadow: 0 6px 18px rgba(37,138,76,0.12); }
+  .tab-content { background: #fff; padding: 18px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
 
     /* Similar Products */
     #similar-products { background: #f7f7f7; padding: 60px 0; }
-    .similar-products-slider .swiper-slide {
-      background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.08); text-align: center; transition: transform 0.3s;
-    }
-    .similar-products-slider .swiper-slide:hover { transform: translateY(-5px); }
-    .similar-products-slider img { width: 100%; height: 200px; object-fit: cover; }
-    .similar-products-slider h5 { margin: 15px 0; font-size: 1.1rem; font-weight: 600; }
+  .similar-products-slider { padding-bottom: 10px; }
+  .similar-products-slider .swiper-slide { padding: 8px; }
+  .sim-box { position:relative; border-radius:8px; overflow:hidden; }
+  .sim-box img { width:100%; height:180px; object-fit:cover; display:block; }
+  .sim-overlay { position:absolute; left:0; right:0; bottom:0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); padding:8px; }
+  .sim-title { color:#fff; font-weight:700; font-size:0.95rem; text-shadow:0 1px 2px rgba(0,0,0,0.3); }
+
+  /* Product info (tabs) */
+  .product-specs { font-size: 14px; }
+  .product-specs table { width: 100%; }
+  .product-specs th { width: 40%; background:#f8f9fa; font-weight:600; padding:12px; }
+  .product-specs td { padding:12px; }
+  .product-key-features ul { list-style: disc; margin-left: 16px; }
+  .product-key-features h5 { font-size: 1.05rem; margin-bottom:8px; }
+  .product-standards { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .product-standards .badge { background:#e9f7ec; color:#18632a; font-weight:600; padding:6px 10px; border-radius:6px; }
+  .app-list { display:flex; flex-direction:column; gap:8px; }
+  .app-item { display:flex; gap:12px; align-items:flex-start; }
+  .app-item .icon { width:38px; height:38px; background:#f1f7f3; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#2f7a45; font-weight:700; }
+  .product-key-features { background:#fbfffb; padding:12px; border-radius:8px; border:1px solid #eaf6ea; }
+  .product-key-features ul li { margin-bottom:6px; }
+  .faq .accordion-button { font-weight:600; }
+
+  /* Request quote CTA improvements */
+  .btn-success.btn-lg { padding: 12px 18px; font-weight:700; box-shadow: 0 6px 18px rgba(37,138,76,0.12); }
+
+  /* Responsive tweaks */
+  @media (max-width: 991px) {
+    .product-gallery { flex-direction: column; }
+    .product-main img { max-height: 420px; }
+    .product-thumbs { display:flex; flex-direction:row; max-height:none; overflow-x:auto; padding-right:0; }
+    .product-thumbs .swiper-wrapper { flex-direction:row; }
+    .product-thumbs .swiper-slide { width:80px !important; }
+  }
   </style>
 </head>
 
@@ -136,6 +175,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
       <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/logo.png" alt="Ampire Industries" style="height:48px;object-fit:contain;margin-right:12px;" />
         <h1 class="sitename">Ampire Industries</h1>
       </a>
       <nav id="navmenu" class="navmenu">
@@ -160,8 +200,9 @@
           <li class="breadcrumb-item active" id="product-name-breadcrumb">Product Name</li>
         </ol>
       </nav>
-      <h1 id="product-name">Product Name</h1>
-      <p id="product-category">Product Category</p>
+  <h1 id="product-name">Product Name</h1>
+  <!-- Product short description populated by product-detail.js -->
+  <p id="product-description" style="max-width:900px;margin:12px auto 0;">Short product description will appear here.</p>
     </div>
   </section>
 
@@ -176,143 +217,76 @@
           <div class="product-main swiper" id="product-main">
             <div class="swiper-wrapper" id="main-wrapper"></div>
             <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Previous slide"></div>
+            <div class="swiper-button-next" aria-label="Next slide"></div>
           </div>
         </div>
+  <!-- Quick specs box (small summary shown under gallery for balance) -->
+  <!-- quick-specs removed to avoid duplicating details -->
+  <!-- Move summary card here so left column shows key info alongside gallery -->
+  <div id="left-summary-placeholder">
+    <div class="card mb-4 shadow-sm" id="product-summary-card">
+      <div class="card-body">
+        <h4 id="product-name-mini" class="card-title">Product Name</h4>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <div class="badge bg-light text-dark border"><strong>Category:</strong> <span id="product-category-info">-</span></div>
+          <div class="badge bg-light text-dark border"><strong>Material:</strong> <span id="product-material">Copper / Aluminum</span></div>
+          <div class="badge bg-light text-dark border"><strong>Voltage:</strong> <span id="product-voltage">600V</span></div>
+          <!-- Standards full list appears in the right column to avoid duplication -->
+        </div>
+        <p id="product-short-desc" class="text-muted small">Short description</p>
+        <div class="mt-3 d-flex gap-2">
+          <a href="index.html#contact" class="btn btn-success btn-lg">
+            <i class="bi bi-envelope"></i> Request a Quote
+          </a>
+          <a data-target="#similar-products" aria-controls="similar-products" class="btn btn-outline-secondary">Explore</a>
+        </div>
+        <hr class="my-3">
+        <div>
+          <h6 class="mb-2">Key Features</h6>
+          <ul id="product-features" class="ps-3 mb-2"></ul>
+          <h6 class="mb-2">Standards</h6>
+          <div id="standards-list" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
       </div>
 
       <!-- Product Info -->
       <div class="col-lg-5">
-        <h3 class="mb-3">Product Information</h3>
-        <ul class="list-unstyled mb-4">
-          <li><strong>Category:</strong> <span id="product-category-info"></span></li>
-          <li><strong>Material:</strong> Copper / Aluminum</li>
-          <li><strong>Voltage Rating:</strong> 600V</li>
-          <li><strong>Standard:</strong> IS / IEC</li>
-        </ul>
+  <h3 class="mb-3">Product Information</h3>
+  <hr style="margin-top:0.5rem;margin-bottom:1rem;border-color:#eee;">
 
-        <div class="mb-4">
-          <a href="#contact" class="btn btn-success btn-lg">
-            <i class="bi bi-envelope"></i> Request a Quote
-          </a>
-        </div>
+  <!-- ✅ NEW Tabs Section -->
+  <!-- All product information shown inline without clicks -->
+        <div class="product-details-sections">
+          <section id="size" class="mb-3">
+            <h5 class="mb-2">Size Range</h5>
+            <div class="product-specs p-2" aria-labelledby="size"></div>
+          </section>
 
-        <!-- ✅ NEW Tabs Section -->
-        <ul class="nav nav-tabs" id="productTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="size-tab" data-bs-toggle="tab" data-bs-target="#size" type="button" role="tab">Size Range</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="insulation-tab" data-bs-toggle="tab" data-bs-target="#insulation" type="button" role="tab">Insulation Class</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="applications-tab" data-bs-toggle="tab" data-bs-target="#applications" type="button" role="tab">Applications</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="packing-tab" data-bs-toggle="tab" data-bs-target="#packing" type="button" role="tab">Packing Details</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button" role="tab">FAQ’s</button>
-          </li>
-        </ul>
+          <section id="insulation" class="mb-3">
+            <h5 class="mb-2">Insulation & Standards</h5>
+            <div class="p-2" id="insulation-content"></div>
+          </section>
 
-        <div class="tab-content p-3 border border-top-0 rounded-bottom" id="productTabContent">
-          <!-- Size Range -->
-          <div class="tab-pane fade show active" id="size" role="tabpanel">
-            <div class="table-responsive">
-              <table class="table table-bordered align-middle">
-                <thead class="table-light">
-                  <tr>
-                    <th>Dimension / Cross Section Area</th>
-                    <th>Min</th>
-                    <th>Max</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Width</td>
-                    <td>2.00 mm</td>
-                    <td>12.00 mm</td>
-                  </tr>
-                  <tr>
-                    <td>Thickness</td>
-                    <td>0.80 mm</td>
-                    <td>5.00 mm</td>
-                  </tr>
-                  <tr>
-                    <td>Cross Section Area</td>
-                    <td>1.50 sq.mm</td>
-                    <td>100 sq.mm</td>
-                  </tr>
-                  <tr>
-                    <td>W/T Ratio</td>
-                    <td colspan="2">1.2 – 6</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <section id="applications" class="mb-3">
+            <h5 class="mb-2">Applications</h5>
+            <div class="p-2" id="applications-content"></div>
+          </section>
 
-          <!-- Insulation Class -->
-          <div class="tab-pane fade" id="insulation" role="tabpanel">
-            <p>Specially treated high-grade papers like <strong>Mica Tapes, Kraft Paper, Thermally Upgraded Paper, and Aramid Paper</strong> are used for insulation. These papers improve dielectric properties, mechanical strength, and thermal endurance.</p>
-          </div>
+          <section id="packing" class="mb-3">
+            <h5 class="mb-2">Packing</h5>
+            <div class="p-2" id="packing-content"></div>
+          </section>
 
-          <!-- Applications -->
-          <div class="tab-pane fade" id="applications" role="tabpanel">
-            <ul>
-              <li>Oil-filled power and distribution transformers</li>
-              <li>Dry-type transformers</li>
-              <li>Traction equipment</li>
-              <li>High-tension motors and generators</li>
-            </ul>
-          </div>
+          <!-- Key features and standards moved to left summary card -->
 
-          <!-- Packing Details -->
-          <div class="tab-pane fade" id="packing" role="tabpanel">
-            <p>Conductors are supplied in sturdy wooden reels, securely wrapped to prevent damage during transportation and storage. Customized packing is available upon request.</p>
-          </div>
-
-          <!-- FAQ’s -->
-          <div class="tab-pane fade" id="faq" role="tabpanel">
-            <div class="accordion" id="faqAccordion">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="faq1">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse1">
-                    What are paper-covered copper/aluminium conductors?
-                  </button>
-                </h2>
-                <div id="faq-collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">
-                    They are electrical conductors wrapped in layers of high-grade insulating paper, designed for use in transformers and electrical machinery.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="faq2">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse2">
-                    What are the benefits?
-                  </button>
-                </h2>
-                <div id="faq-collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">
-                    Benefits include excellent insulation, high thermal and electrical conductivity, and durability in demanding industrial applications.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="faq3">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse3">
-                    What applications use these conductors?
-                  </button>
-                </h2>
-                <div id="faq-collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">
-                    Widely used in transformers, motors, generators, and heavy-duty electrical machinery.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <section id="faq" class="mb-3">
+            <h5 class="mb-2">Frequently Asked Questions</h5>
+            <div id="faq-list" class="faq-list"></div>
+          </section>
         </div>
         <!-- ✅ End Tabs -->
       </div>
@@ -327,6 +301,8 @@
         </div>
         <div class="swiper similar-products-slider">
           <div class="swiper-wrapper" id="similar-products-list"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
           <div class="swiper-pagination mt-3"></div>
         </div>
       </div>
@@ -387,12 +363,23 @@
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a
-          href=“https://themewagon.com>ThemeWagon
+  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+  Distributed by <a href="https://themewagon.com">ThemeWagon</a>
       </div>
     </div>
 
   </footer>
+
+  <!-- sticky CTA removed -->
+
+  <style>
+    /* Small responsive tweaks for product detail page */
+    @media (max-width: 991px) {
+      .product-gallery { flex-direction: column; }
+      .product-thumbs { flex-direction: row; overflow-x: auto; }
+      .product-thumbs .swiper-slide { width: 80px !important; flex: 0 0 auto; }
+    }
+  </style>
 
   <!-- Vendor JS -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -404,24 +391,36 @@
   <script src="assets/js/products/product-data.js"></script>
   <script src="assets/js/products/product-detail.js"></script>
 
+  <style>
+    /* Reduce large white-space below gallery and keep the gallery compact */
+    .product-gallery { margin-bottom: 18px; }
+    .product-main img { background: linear-gradient(180deg,#ffffff,#fbfbfb); }
+
+    /* Make the right-side details act like a compact sticky card on desktop */
+    @media (min-width: 992px) {
+      .col-lg-5 .product-details-sections { position: sticky; top: 110px; }
+      .col-lg-5 { padding-left: 28px; }
+    }
+  </style>
+
   <script>
-    // Init animations
+    // small UI glue: content buttons smooth-scroll (no hash) and some lightweight right-column styling
+    (function(){
+      document.addEventListener('click', function (ev) {
+        const btn = ev.target.closest ? ev.target.closest('[data-scroll-to]') : null;
+        if (!btn) return;
+        ev.preventDefault();
+        const sel = btn.getAttribute('data-scroll-to');
+        if (!sel) return;
+        const target = document.querySelector(sel);
+        if (!target) return;
+        const y = target.getBoundingClientRect().top + window.pageYOffset - 24;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    })();
+
+    // Init animations only; Swiper and GLightbox are initialized from product-detail.js to avoid double initialization.
     AOS.init({ once:true });
-
-    // Init lightbox
-    const lightbox = GLightbox({ selector: '.glightbox' });
-
-    // Initialize Swiper sliders
-    const thumbsSwiper = new Swiper('#product-thumbs', {
-      spaceBetween: 10, slidesPerView: 4, watchSlidesProgress: true, direction: 'vertical',
-    });
-    const mainSwiper = new Swiper('#product-main', {
-      spaceBetween: 10, thumbs: { swiper: thumbsSwiper }, pagination: { el: '.swiper-pagination', clickable: true },
-    });
-    const similarSwiper = new Swiper('.similar-products-slider', {
-      slidesPerView: 3, spaceBetween: 20, pagination: { el: '.swiper-pagination', clickable: true },
-      breakpoints: { 0: { slidesPerView: 1 }, 768: { slidesPerView: 2 }, 992: { slidesPerView: 3 } }
-    });
   </script>
 </body>
 </html>
