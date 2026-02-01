@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setText("product-name-mini", product.name || "");
   setText("product-short-desc", product.description || "");
   const setIfExists = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ''; };
-  setIfExists('product-material', product.material || 'Copper / Aluminum');
+  setIfExists('product-material', product.material || 'Aluminum');
   setIfExists('product-voltage', product.voltage || '600V');
 
   // --- Features block: if #product-features exists use it, otherwise create a small block under product info ---

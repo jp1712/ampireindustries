@@ -146,7 +146,7 @@ const products = [
       "assets/img/products/16.jpg"
     ],
     specifications: [
-      { property: "Conductor", value: "Copper / Aluminium" },
+      { property: "Conductor", value: "Aluminium" },
       { property: "Armour", value: "Galvanized Steel Strip" }
     ],
     applications: [
